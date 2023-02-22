@@ -1,0 +1,11 @@
+# Environment file to build website on each commit
+# For end-users, the gds_env (darribas.org/gds_env) is recommended
+name: book
+channels:
+  - default
+  - conda-forge
+dependencies:
+  - jupytext
+  - pip:
+      - jupyter-book
+

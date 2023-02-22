@@ -1,0 +1,781 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Countries &#8212; Geographic Data Science with Python</title>
+    
+  <link href="../../_static/css/theme.css" rel="stylesheet">
+  <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/.ipynb_checkpoints/custom-checkpoint.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <link rel="canonical" href="https://geographicdata.science/book/data/countries/countries_cleaning.html" />
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="GHSL" href="../ghsl/build_ghsl_extract.html" />
+    <link rel="prev" title="Brexit" href="../brexit/brexit_cleaning.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+<script async="" src="https://www.google-analytics.com/analytics.js"></script>
+<script>
+                        window.ga = window.ga || function () {
+                            (ga.q = ga.q || []).push(arguments) };
+                        ga.l = +new Date;
+                        ga('create', 'UA-146598819-1', 'auto');
+                        ga('set', 'anonymizeIp', true);
+                        ga('send', 'pageview');
+                    </script>
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Geographic Data Science with Python</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../intro.html">
+   Home
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Preface
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks/00_toc.html">
+   Table of Contents
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Part I - Building Blocks
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../intro_part_i.html">
+   Overview
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks/01_geo_thinking.html">
+   Geographic thinking for data scientists
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks/02_geospatial_computational_environment.html">
+   Computational Tools for Geographic Data Science
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks/03_spatial_data.html">
+   Spatial Data
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks/04_spatial_weights.html">
+   Spatial Weights
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Part II - Spatial Data Analysis
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../intro_part_ii.html">
+   Overview
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks/05_choropleth.html">
+   Choropleth Mapping
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks/06_spatial_autocorrelation.html">
+   Global Spatial Autocorrelation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks/07_local_autocorrelation.html">
+   Local Spatial Autocorrelation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks/08_point_pattern_analysis.html">
+   Point Pattern Analysis
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Part III - Advanced Topics
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../intro_part_iii.html">
+   Overview
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks/09_spatial_inequality.html">
+   Spatial Inequality Dynamics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks/10_clustering_and_regionalization.html">
+   Clustering &amp; Regionalization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks/11_regression.html">
+   Spatial Regression
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks/12_feature_engineering.html">
+   Spatial Feature Engineering
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Endmatter
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../notebooks/references.html">
+   References
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Datasets
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../README.html">
+   Overview
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../airbnb/regression_cleaning.html">
+   AirBnb
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../airports/airports_cleaning.html">
+   Airports
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../brexit/brexit_cleaning.html">
+   Brexit
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Countries
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../ghsl/build_ghsl_extract.html">
+   GHSL
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../h3_grid/build_sd_h3_grid.html">
+   H3 Grid
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../mexico/README.html">
+   Mexico
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../nasadem/build_nasadem_sd.html">
+   NASA DEM
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../sandiego/sandiego_tracts_cleaning.html">
+   San Diego Tracts
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../texas/README.html">
+   Texas
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../tokyo/tokyo_cleaning.html">
+   Tokyo Photographs
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../us_county_income/README.html">
+   US County Income 1969-2017
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../../_sources/data/countries/countries_cleaning.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/gdsbook/book/master?urlpath=lab/tree/data/countries/countries_cleaning.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/gdsbook/book/blob/master/data/countries/countries_cleaning.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#donwload-link">
+   Donwload link
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Countries</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#donwload-link">
+   Donwload link
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="countries">
+<h1>Countries<a class="headerlink" href="#countries" title="Permalink to this headline">¶</a></h1>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+
+<span class="kn">import</span> <span class="nn">geopandas</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Remove small islands</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">source_url</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;https://www.naturalearthdata.com/&quot;</span>\
+              <span class="s2">&quot;http//www.naturalearthdata.com/download/&quot;</span>\
+              <span class="s2">&quot;10m/cultural/ne_10m_admin_0_countries.zip&quot;</span>
+             <span class="p">)</span>
+<span class="n">source_url</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries.zip&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ctys</span> <span class="o">=</span> <span class="n">geopandas</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">source_url</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ctys</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7f3811b3fa10&gt;
+</pre></div>
+</div>
+<img alt="../../_images/countries_cleaning_6_1.png" src="../../_images/countries_cleaning_6_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">areas</span> <span class="o">=</span> <span class="n">ctys</span><span class="o">.</span><span class="n">to_crs</span><span class="p">(</span><span class="n">epsg</span><span class="o">=</span><span class="mi">3857</span><span class="p">)</span><span class="o">.</span><span class="n">area</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">areas</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">bins</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7f3811976250&gt;
+</pre></div>
+</div>
+<img alt="../../_images/countries_cleaning_8_1.png" src="../../_images/countries_cleaning_8_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">smallest</span> <span class="o">=</span> <span class="n">areas</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">/</span> <span class="mi">4000</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">small</span> <span class="o">=</span> <span class="n">areas</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">areas</span><span class="o">&lt;</span><span class="n">smallest</span><span class="p">]</span><span class="o">.</span><span class="n">index</span>
+<span class="n">large</span> <span class="o">=</span> <span class="n">ctys</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ctys</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span><span class="n">small</span><span class="p">),</span> <span class="p">:]</span>
+<span class="n">large</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7f38119b8450&gt;
+</pre></div>
+</div>
+<img alt="../../_images/countries_cleaning_10_1.png" src="../../_images/countries_cleaning_10_1.png" />
+</div>
+</div>
+<ul class="simple">
+<li><p>Antartica</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ys</span> <span class="o">=</span> <span class="n">large</span><span class="o">.</span><span class="n">centroid</span><span class="o">.</span><span class="n">geometry</span><span class="o">.</span><span class="n">y</span>
+<span class="n">large</span> <span class="o">=</span> <span class="n">large</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ys</span> <span class="o">&gt;</span> <span class="n">ys</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="p">:]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<hr class="docutils" />
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">time</span> large = large.to_crs(epsg=3857)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 1.67 s, sys: 20.9 ms, total: 1.7 s
+Wall time: 1.7 s
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">large</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7f3811b79650&gt;
+</pre></div>
+</div>
+<img alt="../../_images/countries_cleaning_15_1.png" src="../../_images/countries_cleaning_15_1.png" />
+</div>
+</div>
+<ul class="simple">
+<li><p>Keep only relevant columns</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">large</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;geopandas.geodataframe.GeoDataFrame&#39;&gt;
+Int64Index: 160 entries, 0 to 239
+Data columns (total 95 columns):
+ #   Column      Non-Null Count  Dtype   
+---  ------      --------------  -----   
+ 0   featurecla  160 non-null    object  
+ 1   scalerank   160 non-null    int64   
+ 2   LABELRANK   160 non-null    int64   
+ 3   SOVEREIGNT  160 non-null    object  
+ 4   SOV_A3      160 non-null    object  
+ 5   ADM0_DIF    160 non-null    int64   
+ 6   LEVEL       160 non-null    int64   
+ 7   TYPE        160 non-null    object  
+ 8   ADMIN       160 non-null    object  
+ 9   ADM0_A3     160 non-null    object  
+ 10  GEOU_DIF    160 non-null    int64   
+ 11  GEOUNIT     160 non-null    object  
+ 12  GU_A3       160 non-null    object  
+ 13  SU_DIF      160 non-null    int64   
+ 14  SUBUNIT     160 non-null    object  
+ 15  SU_A3       160 non-null    object  
+ 16  BRK_DIFF    160 non-null    int64   
+ 17  NAME        160 non-null    object  
+ 18  NAME_LONG   160 non-null    object  
+ 19  BRK_A3      160 non-null    object  
+ 20  BRK_NAME    160 non-null    object  
+ 21  BRK_GROUP   0 non-null      object  
+ 22  ABBREV      160 non-null    object  
+ 23  POSTAL      160 non-null    object  
+ 24  FORMAL_EN   158 non-null    object  
+ 25  FORMAL_FR   5 non-null      object  
+ 26  NAME_CIAWF  159 non-null    object  
+ 27  NOTE_ADM0   5 non-null      object  
+ 28  NOTE_BRK    4 non-null      object  
+ 29  NAME_SORT   160 non-null    object  
+ 30  NAME_ALT    2 non-null      object  
+ 31  MAPCOLOR7   160 non-null    int64   
+ 32  MAPCOLOR8   160 non-null    int64   
+ 33  MAPCOLOR9   160 non-null    int64   
+ 34  MAPCOLOR13  160 non-null    int64   
+ 35  POP_EST     160 non-null    int64   
+ 36  POP_RANK    160 non-null    int64   
+ 37  GDP_MD_EST  160 non-null    float64 
+ 38  POP_YEAR    160 non-null    int64   
+ 39  LASTCENSUS  160 non-null    int64   
+ 40  GDP_YEAR    160 non-null    int64   
+ 41  ECONOMY     160 non-null    object  
+ 42  INCOME_GRP  160 non-null    object  
+ 43  WIKIPEDIA   160 non-null    int64   
+ 44  FIPS_10_    160 non-null    object  
+ 45  ISO_A2      160 non-null    object  
+ 46  ISO_A3      160 non-null    object  
+ 47  ISO_A3_EH   160 non-null    object  
+ 48  ISO_N3      160 non-null    object  
+ 49  UN_A3       160 non-null    object  
+ 50  WB_A2       160 non-null    object  
+ 51  WB_A3       160 non-null    object  
+ 52  WOE_ID      160 non-null    int64   
+ 53  WOE_ID_EH   160 non-null    int64   
+ 54  WOE_NOTE    160 non-null    object  
+ 55  ADM0_A3_IS  160 non-null    object  
+ 56  ADM0_A3_US  160 non-null    object  
+ 57  ADM0_A3_UN  160 non-null    int64   
+ 58  ADM0_A3_WB  160 non-null    int64   
+ 59  CONTINENT   160 non-null    object  
+ 60  REGION_UN   160 non-null    object  
+ 61  SUBREGION   160 non-null    object  
+ 62  REGION_WB   160 non-null    object  
+ 63  NAME_LEN    160 non-null    int64   
+ 64  LONG_LEN    160 non-null    int64   
+ 65  ABBREV_LEN  160 non-null    int64   
+ 66  TINY        160 non-null    int64   
+ 67  HOMEPART    160 non-null    int64   
+ 68  MIN_ZOOM    160 non-null    float64 
+ 69  MIN_LABEL   160 non-null    float64 
+ 70  MAX_LABEL   160 non-null    float64 
+ 71  NE_ID       160 non-null    int64   
+ 72  WIKIDATAID  160 non-null    object  
+ 73  NAME_AR     160 non-null    object  
+ 74  NAME_BN     160 non-null    object  
+ 75  NAME_DE     160 non-null    object  
+ 76  NAME_EN     160 non-null    object  
+ 77  NAME_ES     160 non-null    object  
+ 78  NAME_FR     160 non-null    object  
+ 79  NAME_EL     160 non-null    object  
+ 80  NAME_HI     160 non-null    object  
+ 81  NAME_HU     160 non-null    object  
+ 82  NAME_ID     160 non-null    object  
+ 83  NAME_IT     160 non-null    object  
+ 84  NAME_JA     160 non-null    object  
+ 85  NAME_KO     160 non-null    object  
+ 86  NAME_NL     160 non-null    object  
+ 87  NAME_PL     160 non-null    object  
+ 88  NAME_PT     160 non-null    object  
+ 89  NAME_RU     160 non-null    object  
+ 90  NAME_SV     160 non-null    object  
+ 91  NAME_TR     160 non-null    object  
+ 92  NAME_VI     160 non-null    object  
+ 93  NAME_ZH     160 non-null    object  
+ 94  geometry    160 non-null    geometry
+dtypes: float64(4), geometry(1), int64(27), object(63)
+memory usage: 120.0+ KB
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tokeep</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;ADMIN&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;geometry&quot;</span>
+         <span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Write out to file</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">large</span><span class="p">[</span><span class="n">tokeep</span><span class="p">]</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="s1">&#39;countries_clean.gpkg&#39;</span><span class="p">,</span> 
+                      <span class="n">driver</span><span class="o">=</span><span class="s2">&quot;GPKG&quot;</span>
+                     <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="donwload-link">
+<h2>Donwload link<a class="headerlink" href="#donwload-link" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference download internal" download="" href="../../_downloads/aa6db374135e277124917938efb06371/countries_clean.gpkg"><code class="xref download docutils literal notranslate"><span class="pre">[Download</span> <span class="pre">the</span> <span class="pre">*countries_clean.gpkg*</span> <span class="pre">file]</span></code></a></p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./data/countries"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="../brexit/brexit_cleaning.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Brexit</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="../ghsl/build_ghsl_extract.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">GHSL</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            
+        </div>
+    </div>
+    <footer class="footer">
+  <p>
+    
+      By Sergio J. Rey, Dani Arribas-Bel, Levi J. Wolf<br/>
+    
+        &copy; Copyright 2020.<br/>
+      <div class="extra_footer">
+        <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>.
+
+      </div>
+  </p>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>
