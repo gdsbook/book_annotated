@@ -1,4 +1,14 @@
 # Home
+
+```{admonition} Annotated Version
+This book is an _annotated_ version of the "Geographic Data Science with Python" book. It is currently mirroring [`v0.5`](https://github.com/gdsbook/book/releases/tag/v0.5), the most recent stable version.
+
+The original version can be found at:
+
+> [https://geographicdata.science/book](https://geographicdata.science/book)
+
+```
+
 ## Geographic Data Science with Python
 
 * [Sergio J. Rey](https://sergerey.org/)
